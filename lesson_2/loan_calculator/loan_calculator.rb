@@ -79,8 +79,7 @@ loop do
 
   monthly_interest = apr / 12    # CALCULATIONS
 
-  monthly_payment =
-                    loan *
+  monthly_payment = loan *
                     (monthly_interest /
                     (1 - (1 + monthly_interest)**(-months)))
 
