@@ -1,3 +1,6 @@
+require 'yaml'
+MESSAGES = YAML.load_file('loan_calculator_messages.yml')
+
 def prompt(message)
   puts "=> #{message}"
 end
@@ -18,11 +21,11 @@ def two_dp(num)
   format("%.2f", num)
 end
 
-prompt "Hi there, welcome to Loan Calculator!"
+prompt MESSAGES["welcome"]
 sleep(1)
 
 loop do
-  prompt "Please enter your initial loan deposit:"
+  prompt MESSAGES['loan_prompt']
 
   loan = ""                      # LOAN INPUT
   loop do
@@ -32,13 +35,11 @@ loop do
       loan = loan.to_f
       break
     else
-      prompt "Invalid input - Please re-enter with a positive number using "\
-      "digits/decimal points only."
+      prompt MESSAGES['invalid_loan']
     end
   end
 
-  prompt "Please enter your APR (Annual Percentage Rate):"
-
+  prompt MESSAGES['apr_prompt']
   apr = ""                       # APR INPUT
   loop do
     apr = gets.chomp
@@ -49,19 +50,18 @@ loop do
     elsif float?(apr)
       apr = apr.to_f
     else
-      prompt "Invalid input - Please re-enter APR as a positive number "\
-      "between 1 and 30 using digits only."
+      prompt MESSAGES['invalid_apr_1']
       next
     end
 
     if apr.between?(0.01, 0.3)
       break
     else
-      prompt "Invalid input - Please re-enter with a number between 1 and 30."
+      prompt MESSAGES['invalid_apr_2']
     end
   end
 
-  prompt "Please enter the duration of your loan in months:"
+  prompt MESSAGES['duration_prompt']
 
   months = ""                    # DURATION INPUT
   loop do
@@ -71,8 +71,7 @@ loop do
       months = months.to_i
       break
     else
-      prompt "Invalid input - Please re-enter loan duration as a positive "\
-      "number using digits only."
+      prompt MESSAGES['invalid_duration']
     end
   end
   sleep(1)
@@ -94,10 +93,10 @@ Your monthly payment will be $#{monthly_payment}.
   MSG
   sleep(4)
 
-  prompt "Would you like to make another calculation?"
+  prompt MESSAGES['another_calculation?']
   loop_again = gets.chomp
 
   break unless loop_again.downcase.start_with?("y")
 end
 
-prompt "Thanks for using Loan Calculator!"
+prompt MESSAGES['goodbye']
