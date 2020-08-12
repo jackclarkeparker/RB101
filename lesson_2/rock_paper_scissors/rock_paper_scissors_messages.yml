@@ -1,0 +1,7 @@
+welcome: "Welcome to rock paper scissors spock lizard!"
+input_prompt: "\nChoose one:\n 1 - rock\n 2 - paper\n 3 - scissors\n 4 - spock\n 5 - lizard"
+invalid_number: "\n\nINVALID - Please enter a number between 1 and 5\n\n"
+player_g_win: "\n\nThe player is the grand winner!\n\n"
+computer_g_win: "\n\nThe computer is the grand winner!\n\n"
+again: "Do you want to play again? (y/n)"
+goodbye: "Thanks for playing, goodbye!\n\n"
