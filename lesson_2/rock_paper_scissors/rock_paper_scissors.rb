@@ -12,7 +12,7 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-def welcome
+def print_welcome
   system("clear")
   prompt MESSAGES["welcome"]
   sleep(1.2)
@@ -21,10 +21,9 @@ end
 def get_player_choice
   choice = ''
   loop do
-    puts MESSAGES["input_prompt"]
-
     choice = gets.chomp
     sleep(0.7)
+
     if ('1'..'5').include?(choice)
       break
     else
@@ -75,7 +74,7 @@ end
 
 def play_again?
   loop do
-    answer = gets.chomp
+    answer = gets.chomp.downcase
     sleep(0.7)
 
     if answer == 'y'
@@ -97,9 +96,10 @@ def reset_game
 end
 
 scoreboard = [0, 0]
-welcome
+print_welcome
 
 loop do
+  puts MESSAGES["input_prompt"]
   choice = get_player_choice
   computer_choice = VALID_CHOICES.sample
 
@@ -114,8 +114,8 @@ loop do
 
   prompt MESSAGES["again?"]
   again = play_again?
-  break unless again
 
+  break unless again
   reset_game
   scoreboard = [0, 0]
 end
