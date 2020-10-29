@@ -118,7 +118,7 @@ def display_winner_cascade(card)
       sleep(0.005)
     end
   end
-  sleep(1)
+  sleep(1.5)
   system('clear')
 end
 # rubocop:enable Style/For
@@ -204,7 +204,7 @@ def valid_integer?(num)
 end
 
 def computer_places_piece!(brd)
-  square = offensive_or_defensive_move(brd)
+  square = find_offensive_or_defensive_move(brd)
 
   if !square && brd[5] == INITIAL_MARKER
     square = 5
@@ -215,18 +215,16 @@ def computer_places_piece!(brd)
   brd[square] = COMPUTER_MARKER
 end
 
-def offensive_or_defensive_move(brd)
+def find_offensive_or_defensive_move(brd)
   sqr = nil
   WINNING_LINES.each do |line|
     sqr = find_at_risk_square(line, brd, COMPUTER_MARKER)
     return sqr if sqr
   end
 
-  if !sqr
-    WINNING_LINES.each do |line|
-      sqr = find_at_risk_square(line, brd, PLAYER_MARKER)
-      return sqr if sqr
-    end
+  WINNING_LINES.each do |line|
+    sqr = find_at_risk_square(line, brd, PLAYER_MARKER)
+    return sqr if sqr
   end
   nil
 end
