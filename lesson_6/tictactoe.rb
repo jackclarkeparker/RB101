@@ -67,29 +67,18 @@ end
 # rubocop:enable Metrics/AbcSize
 
 def display_scores(card)
-  puts "Player score: #{card[:player]}"
-  puts "Computer score: #{card[:computer]}"
+  puts "Player score: #{card['Player']}"
+  puts "Computer score: #{card['Computer']}"
 end
 
-def display_winner(brd, card)
-  case detect_winner(brd)
-  when "Player"
-    prompt "Player won!"
+def display_winner(winner)
+  if winner
+    prompt "#{winner} won!"
     sleep(1.2)
-    card[:player] += 1
-  when "Computer"
-    prompt "Computer won!"
-    sleep(1.2)
-    card[:computer] += 1
   else
     prompt "It's a tie!"
     sleep(1.2)
   end
-end
-
-def display_reel(brd, card)
-  display_board(brd, card)
-  display_winner(brd, card)
 end
 
 def display_grandwinner(card)
@@ -106,7 +95,6 @@ def display_grandwinner(card)
   display_winner_cascade(card)
 end
 
-# rubocop:disable Style/For
 def display_winner_cascade(card)
   winner = "THE #{card.key(5)}!!! ".upcase
   (1..4).each do |column|
@@ -118,7 +106,6 @@ def display_winner_cascade(card)
   sleep(1.5)
   system('clear')
 end
-# rubocop:enable Style/For
 
 def display_markers_key
   puts "\n\nPlayer marker - #{PLAYER_MARKER}"
@@ -214,14 +201,11 @@ end
 
 def find_offensive_or_defensive_move(brd)
   sqr = nil
-  WINNING_LINES.each do |line|
-    sqr = find_at_risk_square(line, brd, COMPUTER_MARKER)
-    return sqr if sqr
-  end
-
-  WINNING_LINES.each do |line|
-    sqr = find_at_risk_square(line, brd, PLAYER_MARKER)
-    return sqr if sqr
+  [COMPUTER_MARKER, PLAYER_MARKER].each do |marker|
+    WINNING_LINES.each do |line|
+      sqr = find_at_risk_square(line, brd, marker)
+      return sqr if sqr
+    end
   end
   nil
 end
@@ -272,6 +256,14 @@ def detect_winner(brd)
   nil
 end
 
+def update_score(winner, card)
+  card[winner] += 1 if winner
+end
+
+def overall_winner?(card)
+  card.any? { |_, score| score >= 5 }
+end
+
 def play_again?
   answer = ''
 
@@ -295,7 +287,7 @@ end
 system('clear')
 display_intro_sequence
 loop do
-  score_card = { player: 0, computer: 0 }
+  score_card = { 'Player' => 0, 'Computer' => 0 }
   starting_player = find_starting_player
 
   loop do
@@ -309,9 +301,12 @@ loop do
       break if someone_won?(board) || board_full?(board)
     end
 
-    display_reel(board, score_card)
+    display_board(board, score_card)
+    winner = detect_winner(board)
+    display_winner(winner)
+    update_score(winner, score_card)
 
-    break if score_card.any? { |_, score| score >= 5 }
+    break if overall_winner?(score_card)
   end
 
   display_grandwinner(score_card)
@@ -322,44 +317,3 @@ end
 prompt "Thanks for playing Tic Tac Toe! Good bye!"
 sleep(0.8)
 system('clear')
-
-# rubocop:disable Layout/LineLength
-=begin
-
-___Lingering Questions___
- 1. Not sure whether it's a good idea to include score_card in the detect_winner method,
-    because it seems to dilute detect_winner into two actions; figuring out who won, and
-    tallying this into the scorecard. We've been told that it's best to keep your methods
-    simple by confining them to one action each.
-    - Would it be better to call a helper method from within detect_winner such as
-      tally_score   ?
-      - Thinking about this makes me realise that even if you do this, and make
-        detect_winner a method that does one thing, you'd still have to pass in
-        the extra arguments for the helper method: your method may only do one thing,
-        but the arguments you pass in do more than one thing, which may be confusing,
-        and the opposite of the simplicity we're trying to achieve when we say we make
-        our methods to do one thing.
-          - Maybe this is the reason there are those other types of variables,
-            accessible in other scopes.
-          - Maybe I can also resolve this by using some default values?
-            - Don't think so.
-
- 2. The name of my method is ai defense. It doesn't explain how it is operating.
-   - This means that you have to take a look at the implementation every time that you run the code.
-
- 3.
-
-## Other thoughts
-
-- This is something that I've seen before, but still, tripped up with. Not that
-  it's immediately obvious. And I didn't have the full problem description that
-  I was tackling, I was working with one portion of the bonus features. The point
-  is more about a learning here, and obviously you don't pick everything up perfectly
-  the first time through. LS's solutions point out that both the offensive and defensive
-  mechanisms of the AI rely on the ability to find "At risk squares". Since they both
-  do this, we can reuse this method with a different argument for whether it will
-  check for an offensive opportunity or defensive opportunity.
-  system that chooses
-
-=end
-# rubocop:enable Layout/LineLength
