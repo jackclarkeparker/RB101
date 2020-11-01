@@ -1,6 +1,3 @@
-require 'pry'
-require 'pry-byebug'
-
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
@@ -10,16 +7,16 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                 [[1, 5, 9], [3, 5, 7]]              # diagonals
 
 def display_intro_sequence
-  display_intro_top_n_bot
-  display_intro_mid
+  display_intro_top_and_bottom
+  display_intro_middle
   display_intro_title
-  display_intro_mid
-  display_intro_top_n_bot
+  display_intro_middle
+  display_intro_top_and_bottom
   sleep(2)
   system('clear')
 end
 
-def display_intro_top_n_bot
+def display_intro_top_and_bottom
   10.times do
     symbol = ["XXXOOO", "OOOXXX"].sample
     13.times do
@@ -31,7 +28,7 @@ def display_intro_top_n_bot
 end
 
 # rubocop:disable Lint/ParenthesesAsGroupedExpression
-def display_intro_mid
+def display_intro_middle
   5.times do
     symbol = ["XXXOOO", "OOOXXX"].sample
     puts (symbol * 4) + (" " * 30) + (symbol * 4)
@@ -112,7 +109,7 @@ end
 # rubocop:disable Style/For
 def display_winner_cascade(card)
   winner = "THE #{card.key(5)}!!! ".upcase
-  for column in (1..4) do
+  (1..4).each do |column|
     70.times do
       puts winner * column
       sleep(0.005)
