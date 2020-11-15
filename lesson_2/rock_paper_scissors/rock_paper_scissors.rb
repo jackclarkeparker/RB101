@@ -9,7 +9,7 @@ CODE_FOR_MOVE = {
   'sp' => 'spock',
   'l' => 'lizard'
 }
-WIN = {
+WINNING_COMBOS = {
   'rock' => %w(lizard scissors),
   'paper' => %w(rock spock),
   'scissors' => %w(paper lizard),
@@ -39,7 +39,7 @@ end
 def get_player_choice
   choice = ''
   loop do
-    choice = gets.chomp
+    choice = gets.chomp.downcase
     sleep(0.7)
 
     if %w(r p sc sp l).include?(choice)
@@ -48,14 +48,14 @@ def get_player_choice
       prompt MESSAGES["invalid_choice"]
     end
   end
-
+  system("clear")
   CODE_FOR_MOVE[choice]
 end
 
 def tally_scores(player, comp, scores)
-  if WIN[player].include?(comp)
+  if WINNING_COMBOS[player].include?(comp)
     scores[:player] += 1
-  elsif WIN[comp].include?(player)
+  elsif WINNING_COMBOS[comp].include?(player)
     scores[:comp] += 1
   end
 
@@ -63,10 +63,10 @@ def tally_scores(player, comp, scores)
 end
 
 def print_results(player, comp, scores)
-  if WIN[player].include?(comp)
+  if WINNING_COMBOS[player].include?(comp)
     prompt "You won!"
-  elsif WIN[comp].include?(player)
-    prompt 'Computer won!'
+  elsif WINNING_COMBOS[comp].include?(player)
+    prompt "Computer won!"
   else
     prompt "It's a tie!"
   end
@@ -83,9 +83,9 @@ end
 
 def print_grand_winner(scores)
   if scores[:player] == WINNING_SCORE
-    prompt MESSAGES["player_g_win"]
+    prompt MESSAGES["player_is_grand_winner"]
   elsif scores[:comp] == WINNING_SCORE
-    prompt MESSAGES["comp_g_win"]
+    prompt MESSAGES["comp_is_grand_winner"]
   end
   sleep(1.5)
 end
