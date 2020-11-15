@@ -2,9 +2,11 @@
 
 ### Description of contents
 
-This directory contains two ruby files, `21.rb` is my 21 program, and 
-`LS_21_solution.rb` is Launch School's program.   
+This directory contains two ruby files; `21.rb` which is my program, and 
+`LS_21_solution.rb` which is Launch School's program.  
+
 I've included both files because some of the tasks from the bonus_features assignment for this project were implemented on Launch School's code, and some on my code.   
+
 `21_messages.yml` passes string messages into `21.rb`
 
 The next item in this README file contains some explanations for how and where some of the bonus_features were implemented.   
