@@ -1,0 +1,8 @@
+noun: "Enter a noun: "
+verb: "Enter a verb: "
+adjective: "Enter an adjective: "
+adverb: "Enter an adverb: "
+invalid: "Invalid Input: Please enter a single word for the given category."
+sentence1: "The %s %s %s... It was %s!"
+sentence2: "Sometimes, when I %s in the morning, %s comes up so %s, it's very %s."
+sentence3: "My dearest %s %s, the thing was that she %s %s."
