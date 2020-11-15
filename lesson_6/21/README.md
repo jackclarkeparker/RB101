@@ -1,6 +1,6 @@
 # 21 project from Lesson 6 of RB101 - README
 
-### Description of contents
+## Description of contents
 
 - This directory contains two ruby files; `21.rb` which is my program, and 
 `LS_21_solution.rb` which is Launch School's program.  
@@ -10,7 +10,7 @@
 The next item in this README file contains some explanations for how and where some of the bonus_features were implemented.   
 Below this, there are notes and plans that I made when figuring out how I wanted to implement the project.
 
-##### Twenty-One Bonus Features
+### Twenty-One Bonus Features
 
 1. This bonus feature that assigns player_score and dealer_score variables
    doesn't function very well in my program. Launch School's program executes
@@ -36,7 +36,7 @@ Below this, there are notes and plans that I made when figuring out how I wanted
 5. I've implemented the BUST_LIMIT and STAY_THRESHOLD constants to allow
    for adaptability of the points limit for the game.
 
-####### WHICH DATA STRUCTURE FOR DECK:
+### WHICH DATA STRUCTURE FOR DECK:
   - 52 cards
     - 4 suits * 13 cards
   - needs to record whether cards are present or not.
@@ -50,14 +50,14 @@ Below this, there are notes and plans that I made when figuring out how I wanted
   Q - Is suit significant?
   A ~ I don't think so.
 
-# An array of arrays, each subarray containing the number of remaining of a given card value.
+##### An array of arrays, each subarray containing the number of remaining of a given card value.
 
 [[2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6],
  [7, 7, 7, 7], [8, 8, 8, 8], [9, 9, 9, 9], [10, 10, 10, 10],
  [J, J, J, J], [Q, Q, Q, Q], [K, K, K, K], [A, A, A, A]]
 
 
-# A 1-dimensional version of the above array.
+##### A 1-dimensional version of the above array.
 
 [ 2, 2, 2, 2,
   3, 3, 3, 3,
@@ -74,7 +74,7 @@ Below this, there are notes and plans that I made when figuring out how I wanted
   'A', 'A', 'A', 'A']
 
 
-# A hash with keys representing different card values, and corresponding values representing the number of that card remaining.
+##### A hash with keys representing different card values, and corresponding values representing the number of that card remaining.
 
 {
   'A' => 4,
@@ -104,7 +104,7 @@ No, because the process of taking our data from the deck structure and passing i
 array is an unnecessary increment of complexity. Displaying the deck initially as an array is no
 problem for the programmer.
 
-####### ANSWER FOR DECK DATA STRUCTURE
+#### ANSWER FOR DECK DATA STRUCTURE
 No reason not to use the 1 dimensional array.
 It records what has come out of the deck.
 We can randomly remove values from it.
@@ -112,7 +112,7 @@ It is simpler than the other two.
 
 
 
-####### PLAYER / DEALER CARDS DATA STRUCTURE
+### PLAYER / DEALER CARDS DATA STRUCTURE
 
   - We'll be summing the values in the data structure to determine whether the hand is bust
   - We'll be adding new values to the data structure.
@@ -129,7 +129,7 @@ It is simpler than the other two.
   Q - Do we need to record the suit of cards in the hand?
   A ~ I don't think so.
 
-# An array of the values that are contained in a hand:
+##### An array of the values that are contained in a hand:
 
 [2, 5, 'Q', 'A']
 
@@ -143,9 +143,9 @@ Will need two arrays, one for displaying to the player, another for finding
 the sum of actual numeric values - We cannot perform sum on values such as
 'Q' and 'A'.
 
-####### ANSWER FOR PLAYER / DEALER DECK DATA STRUCTURE
+#### ANSWER FOR PLAYER / DEALER DECK DATA STRUCTURE
 
-# An array of the face values that are contained in the hand, that can be
+##### An array of the face values that are contained in the hand, that can be
   turned into an array of the real values represented by cards in the hand:
 
 [2, 5, 7, 'A']
@@ -156,7 +156,7 @@ the sum of actual numeric values - We cannot perform sum on values such as
 'Q' and 'A'.
 
 
-####### CALCULATING ACES
+### CALCULATING ACES
 
 Aim:
 
@@ -176,13 +176,13 @@ Questions:
   Q - 
 
 Rules
-### EXPLICIT:
+#### EXPLICIT:
     - 
     - 
     - 
     - 
 
-### IMPLICIT:
+#### IMPLICIT:
     - Input: Array containing at least one 'A'
     * Player / dealer Hand of cards, with 'J'..'K' already transformed into their numeric values
     - Output: Array
@@ -197,26 +197,26 @@ Input:
 [2, 3, 'A']
 Output:
 [2, 3, 11]
-# 2 + 3 + 11 <= 21 (not bust) A is represented as 11
+`2 + 3 + 11 <= 21` (not bust) A is represented as 11
 
 Input:
 [3, 3, 5, 'A']
 Output:
 [3, 3, 5, 1]
-# 3 + 3 + 5 + 11 > 21 (bust) So A is represented as 1
+`3 + 3 + 5 + 11 > 21` (bust) So A is represented as 1
 
 Input:
 [4, 8, 'A', 10]
 Output:
 [4, 8, 1, 10]
-# (And bust)
+(And bust)
 
 Data Structure:
   - Array is passed in
   - We'll need to find sum of non ace values first
   - 
 
-Algorithm
+### Algorithm
 
 Input: Array (hand of cards)
 
@@ -239,7 +239,7 @@ royals into their values.
 
 calculate_aces will be a helper method inside of a greater find_hand_score method.
 
-___Lingering Questions___
+### ___Lingering Questions___
  1. Should I call #sum in my find_hand_score method? Currently I call this in busted?
     - I guess this branches to: Is busted? a good method to have? I guess it's more
       legible and continuous with the methods I've written which are to do with
@@ -293,7 +293,7 @@ ___Lingering Questions___
  5. Play again?
 
 
-Notes after reading solution:
+### Notes after reading solution:
 - LS assigns suits to it's cards. I wonder why they do that?
 - They have a big game loop, and orchestrate much of their logic in this loop.
   + One of the things about pushing all fo your code into methods is that it makes it hard to pass values around
