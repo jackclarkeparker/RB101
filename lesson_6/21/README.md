@@ -10,7 +10,7 @@ I've included both files because some of the tasks from the bonus_features assig
 The next item in this README file contains some explanations for how and where some of the bonus_features were implemented.   
 Below this, there are notes and plans that I made when figuring out how I wanted to implement the project.
 
-##### twenty-one bonus features
+##### Twenty-One Bonus Features
 
 1. This bonus feature that assigns player_score and dealer_score variables
    doesn't function very well in my program. Launch School's program executes
